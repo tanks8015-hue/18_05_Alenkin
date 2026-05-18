@@ -1,0 +1,30 @@
+CREATE TABLE Categories (
+    CategoryId INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL
+);
+CREATE TABLE Users (
+    UserId INT IDENTITY(1,1) PRIMARY KEY,
+    Username NVARCHAR(50) NOT NULL UNIQUE,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Role NVARCHAR(20) NOT NULL CHECK (Role IN ('Кладовщик', 'Менеджер')) 
+);
+CREATE TABLE Products (
+    ProductId INT IDENTITY(1,1) PRIMARY KEY,
+    CategoryId INT NOT NULL FOREIGN KEY REFERENCES Categories(CategoryId),
+    SKU NVARCHAR(50) NOT NULL UNIQUE, 
+    Name NVARCHAR(150) NOT NULL,
+    StockQuantity INT NOT NULL DEFAULT 0,
+    PhotoUrl NVARCHAR(255) NULL 
+);
+CREATE TABLE Orders (
+    OrderId INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL FOREIGN KEY REFERENCES Users(UserId),
+    OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
+    Status NVARCHAR(50) NOT NULL DEFAULT 'Created'
+);
+CREATE TABLE OrderItems (
+    OrderItemId INT IDENTITY(1,1) PRIMARY KEY,
+    OrderId INT NOT NULL FOREIGN KEY REFERENCES Orders(OrderId),
+    ProductId INT NOT NULL FOREIGN KEY REFERENCES Products(ProductId),
+    Quantity INT NOT NULL
+);

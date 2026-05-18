@@ -1,0 +1,2 @@
+INSERT INTO Categories (Name) VALUES ('Электроника'), ('Инструменты');
+INSERT INTO Users (Username, PasswordHash, Role) VALUES ('admin', 'hash_here', 'Менеджер'), ('worker1', 'hash_here2', 'Кладовщик');

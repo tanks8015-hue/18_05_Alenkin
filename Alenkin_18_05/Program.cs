@@ -15,8 +15,6 @@ namespace Alenkin_18_05
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
@@ -65,8 +63,6 @@ namespace Alenkin_18_05
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            // 4. Обязательный порядок: сначала аутентификация, потом авторизация
             app.UseAuthentication();
             app.UseAuthorization();
 
